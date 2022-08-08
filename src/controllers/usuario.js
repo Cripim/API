@@ -1,9 +1,12 @@
+import { bdUsuario } from "../infra/bd.js";
+
 export const usuarios = (app) => {
-  app.get("/usuario/get", (req, res) => {
-    // enviando uma resposta
-    res.send(
-      "Rota ativada com GET e recurso usuarios: valores de usuarios devem ser retornados"
-    );
+  app.get("/usuario/:email", (req, res) => {
+    for (let i = 0; i < bdUsuario.length; i++) {
+      if (req.params.email == bdUsuario[i].email) {
+        res.json(bdUsuario[i]);
+      }
+    }
   });
   app.post("/usuario", (req, res) => {
     // enviando uma resposta

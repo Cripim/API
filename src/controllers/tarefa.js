@@ -6,9 +6,16 @@ export const tarefas = (app) => {
     res.send("Rota GET de tarefa ativada: tarefas retornadas!");
   });
   app.post("/tarefa/post", (req, res) => {
-    const { titulo, descricacao, status, dataCriacao } = request.body;
-    const NewTask = new tarefas(titulo, descricacao, status, dataCriacao);
+    const { titulo, descricacao, status, dataCriacao } = req.body;
+    const NewTask = new Tarefa(titulo, descricacao, status, dataCriacao);
     bdTarefa.push(NewTask);
-    response.send("Tarefa criado com sucesso");
+    res.send(bdTarefa);
+  });
+  app.get("/tarefa/:id", (req, res) => {
+    for (let i = 0; i < bdTarefa.length; i++) {
+      if (req.params.id == bdTarefa[i].id) {
+        res.json(bdTarefa[i]);
+      }
+    }
   });
 };
